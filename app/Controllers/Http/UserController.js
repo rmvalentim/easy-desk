@@ -1,24 +1,45 @@
 'use strict'
 
+const User = use('App/Models/User');
+
 class UserController {
 
-    async login({ auth, request, response }) {
-       
-        const { email, password } = request.all();
-        try {
-            await auth.attempt(email, password);
-        }catch(err) {
-            console.log(err); // Erro ao tentar logar
-        }            
-        
-        response.redirect(`/users/${auth.user.id}`);
+    async index ({ view }) {
+        const users = await User.all();
+
+        return view.render('User.index', { users: users.rows });
     }
 
-    show ({ auth, params }) {
-        if (auth.user.id !== Number(params.id)) {
-            return "Você não pode ver o perfil de outro usuário";
-        }
-        return auth.user;
+    async create ({ view }) {
+
+        return view.render('User.create');
+    }
+
+    async store ({ request, response }) {
+        const user =  await User.create(request.only([
+            'username',
+            'email',
+            'password'
+        ]));
+        response.redirect('/users');
+    }
+
+    async show ({ params, request, response, view }) {
+    }
+
+
+    async edit ({ params, view }) {       
+        const user = await User.find(params.id);
+        // TODO
+        return view.render('User.edit');
+    }
+
+
+    async update ({ params, request, response }) {
+    }
+
+
+    async destroy ({ params, request, response }) {
     }
 }
 

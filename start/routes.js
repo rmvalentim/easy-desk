@@ -3,12 +3,21 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route');
 
-Route.on('/').render('welcome');
+Route.on('/').render('login');
 
 Route
-    .post('/login', 'UserController.login');
-  
+    .post('/login', 'AuthController.login');
 
-Route
-    .get('/users/:id', 'UserController.show')
-    .middleware('auth');
+// Authenticated routes
+Route.group(() => {
+
+    Route.on('/index').render('index');
+    
+    Route.resource('users', 'UserController');
+
+}).middleware(['auth']);
+    
+
+
+
+    

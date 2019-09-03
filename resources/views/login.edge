@@ -1,0 +1,19 @@
+@layout('master')
+
+@section('content')
+
+<section>
+  <div>
+    <form action="/login" method="post">
+      <label for="email">E-mail:</label>
+      <input type="text" name="email">
+      <br>
+      <label for="password">Senha:</label>
+      <input type="password" name="password">
+      <br>
+      <input type="submit" value="Login">
+    </form>
+  </div>
+</section>
+
+@endsection
