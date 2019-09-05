@@ -1,0 +1,15 @@
+@layout('master')
+
+@section('content')
+
+<strong>Username:</strong>
+<span>{{ user.username }}</span>
+<br>
+<strong>E-mail:</strong>
+<span>{{ user.email }}</span>
+<br>
+<form action="{{ route('users.destroy', { id: user.id }) }}" method="post">
+    <input type="submit" value="Excluir Usuário">
+</form>
+
+@endsection

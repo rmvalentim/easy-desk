@@ -10,12 +10,14 @@
         <th>Username</th>
         <th>E-mail</th>
         <th></th>
+        <th></th>
     </tr>
     @each(user in users)
     <tr>
         <td> {{ user.username }} </td>
         <td> {{ user.email }} </td>
-        <td> <a href="{{ route('users.edit', { id: user.id }) }}">Editar</a></td>
+        <td><a href="{{ route('users.show', { id: user.id }) }}">Ver</a></td>
+        <td><a href="{{ route('users.edit', { id: user.id }) }}">Editar</a></td>
     </tr>
     @endeach
 </table>

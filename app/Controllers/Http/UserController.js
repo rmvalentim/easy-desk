@@ -25,17 +25,31 @@ class UserController {
     }
 
     async show ({ params, request, response, view }) {
+        const user = await User.findOrFail(params.id);
+
+        return view.render('User.show', {user: user});
     }
 
 
-    async edit ({ params, view }) {       
-        const user = await User.find(params.id);
-        // TODO
-        return view.render('User.edit');
+    async edit ({ params, view }) {             
+        const user = await User.findOrFail(params.id); 
+
+        return view.render('User.edit', {user: user});
     }
-
-
+    
     async update ({ params, request, response }) {
+        const user = await User.findOrFail(params.id);
+
+        const data = request.only([
+        'username',
+        'email',
+        'password'
+        ]);
+
+        user.merge(data);
+        await user.save();
+
+        response.redirect('/users');
     }
 
 
