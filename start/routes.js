@@ -14,6 +14,7 @@ Route.group(() => {
     Route.on('/index').render('index');
     
     Route.resource('users', 'UserController');
+    Route.resource('categories', 'CategoryController');
 
 }).middleware(['auth']);
     

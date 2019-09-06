@@ -1,0 +1,23 @@
+@layout('master')
+
+@section('content')
+
+<h2>Categorias</h2>
+<a href="{{ route('categories.create') }}">Nova categoria</a>
+<br>
+<table>
+    <tr>
+        <th>Descrição</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @each(category in categories)
+    <tr>
+        <td> {{category.description}} </td>
+        <td><a href="{{ route('categories.show', { id: category.id }) }}">Ver</a></td>
+        <td><a href="{{ route('categories.edit', { id: category.id }) }}">Editar</a></td>       
+    </tr>
+    @endeach
+</table>
+
+@endsection
