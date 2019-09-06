@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form method="POST" action="{{ route('users.update', {id: user.id}) }}">
+<form method="POST" action="{{ route('users.update', {id: user.id}) }}?_method=PUT">
     <label for="username">Username:</label>
     <input type="text" name="username" value="{{ user.username }}">
     <br>

@@ -54,6 +54,10 @@ class UserController {
 
 
     async destroy ({ params, request, response }) {
+        const user = await User.findOrFail(params.id);
+        await user.delete();
+        
+        response.redirect('/users');
     }
 }
 
