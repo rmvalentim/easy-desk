@@ -9,12 +9,10 @@ class CategoryController {
 
     return view.render('Category.index', {categories: categories.rows});
   }
-
   
   async create ({ view }) {
     return view.render('Category.create');
   }
-
   
   async store ({ request, response }) {
     await Category.create(request.only([
@@ -23,22 +21,31 @@ class CategoryController {
 
     response.redirect('/categories');
   }
-
   
   async show ({ params, view }) {
     const category = await Category.findOrFail(params.id);
 
     return view.render('Category.show', { category: category });
   }
-
  
-  async edit ({ params, request, response, view }) {
-  }
+  async edit ({ params, view }) {
+    const category = await Category.findOrFail(params.id);
 
+    return view.render('Category.edit', { category: category });
+  }
   
   async update ({ params, request, response }) {
-  }
+    const category = await Category.findOrFail(params.id);
+    
+    const data = request.only([
+      'description'
+    ]);
 
+    category.merge(data);
+    category.save();
+
+    response.redirect('/categories');
+  }
   
   async destroy ({ params, response }) {
     const category = await Category.findOrFail(params.id);

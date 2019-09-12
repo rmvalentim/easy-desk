@@ -1,0 +1,11 @@
+@layout('master')
+
+@section('content')
+<form action="{{ route('priorities.update', { id: priority.id }) }}?_method=PUT" method="post">
+    <label for="description">Prioridade:</label>
+    <input type="text" name="description" value="{{ priority.description }}">
+    <br>
+    <input type="submit" value="Editar">
+</form>
+
+@endsection

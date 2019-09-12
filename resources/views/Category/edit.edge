@@ -1,6 +1,11 @@
 @layout('master')
 
 @section('content')
-
+<form action="{{ route('categories.update', { id: category.id }) }}?_method=PUT" method="post">
+    <label for="description">Categoria:</label>
+    <input type="text" name="description" value="{{ category.description }}">
+    <br>
+    <input type="submit" value="Editar">
+</form>
 
 @endsection

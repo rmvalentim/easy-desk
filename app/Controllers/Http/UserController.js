@@ -30,7 +30,6 @@ class UserController {
         return view.render('User.show', {user: user});
     }
 
-
     async edit ({ params, view }) {             
         const user = await User.findOrFail(params.id); 
 
@@ -51,7 +50,6 @@ class UserController {
 
         response.redirect('/users');
     }
-
 
     async destroy ({ params, response }) {
         const user = await User.findOrFail(params.id);

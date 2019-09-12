@@ -1,0 +1,12 @@
+@layout('master')
+
+@section('content')
+
+<form action="{{ route('priorities.store') }}" method="post">
+    <label for="description">Descrição:</label>
+    <input type="text" name="description">
+    <br>
+    <input type="submit" value="Cadastrar">
+</form>
+
+@endsection

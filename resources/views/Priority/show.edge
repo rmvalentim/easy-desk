@@ -1,0 +1,10 @@
+@layout('master')
+
+@section('content')
+<strong>Prioridade:</strong>
+<span>{{ priority.description }}</span>
+<br>
+<form action="{{ route('priorities.destroy', { id: priority.id }) }}?_method=DELETE" method="post">
+    <input type="submit" value="Excluir Prioridade">
+</form>
+@endsection
