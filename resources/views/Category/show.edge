@@ -1,6 +1,10 @@
 @layout('master')
 
 @section('content')
-
-
+<strong>Categoria:</strong>
+<span>{{ category.description }}</span>
+<br>
+<form action="{{ route('categories.destroy', { id: category.id }) }}?_method=DELETE" method="post">
+    <input type="submit" value="Excluir Categoria">
+</form>
 @endsection

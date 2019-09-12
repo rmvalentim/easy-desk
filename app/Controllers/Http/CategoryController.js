@@ -11,15 +11,24 @@ class CategoryController {
   }
 
   
-  async create ({ request, response, view }) {
+  async create ({ view }) {
+    return view.render('Category.create');
   }
 
   
   async store ({ request, response }) {
+    await Category.create(request.only([
+      'description'
+    ]));
+
+    response.redirect('/categories');
   }
 
   
-  async show ({ params, request, response, view }) {
+  async show ({ params, view }) {
+    const category = await Category.findOrFail(params.id);
+
+    return view.render('Category.show', { category: category });
   }
 
  
@@ -31,7 +40,11 @@ class CategoryController {
   }
 
   
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response }) {
+    const category = await Category.findOrFail(params.id);
+    await category.delete();
+
+    response.redirect('/categories');
   }
 }
 
