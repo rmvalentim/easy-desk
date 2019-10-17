@@ -1,0 +1,23 @@
+@layout('master')
+
+@section('content')
+
+<h2>Status de Tickets</h2>
+<a href="{{ route('ticketStatus.create') }}">Novo status</a>
+<br>
+<table>
+    <tr>
+        <th>Descrição</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @each(status in ticketsStatus)
+    <tr>
+        <td> {{status.description}} </td>
+        <td><a href="{{ route('ticketStatus.show', { id: status.id }) }}">Ver</a></td>
+        <td><a href="{{ route('ticketStatus.edit', { id: status.id }) }}">Editar</a></td>       
+    </tr>
+    @endeach
+</table>
+
+@endsection

@@ -16,6 +16,7 @@ Route.group(() => {
     Route.resource('users', 'UserController');
     Route.resource('categories', 'CategoryController');
     Route.resource('priorities', 'PriorityController');
+    Route.resource('ticketStatus', 'TicketStatusController');
 
 }).middleware(['auth']);
     

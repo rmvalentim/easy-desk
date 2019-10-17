@@ -1,0 +1,11 @@
+@layout('master')
+
+@section('content')
+<form action="{{ route('ticketStatus.update', { id: ticketStatus.id }) }}?_method=PUT" method="post">
+    <label for="description">Status de Ticket:</label>
+    <input type="text" name="description" value="{{ ticketStatus.description }}">
+    <br>
+    <input type="submit" value="Editar">
+</form>
+
+@endsection
