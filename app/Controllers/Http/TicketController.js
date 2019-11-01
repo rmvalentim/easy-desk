@@ -1,91 +1,66 @@
 'use strict'
 
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
+const Ticket = use('App/Models/Ticket');
+const Status = use('App/Models/TicketStatus');
+const Priority = use('App/Models/Priority');
+const Category = use('App/Models/Category');
 
-/**
- * Resourceful controller for interacting with tickets
- */
 class TicketController {
-  /**
-   * Show a list of all tickets.
-   * GET tickets
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async index ({ request, response, view }) {
+
+  async index ({ view }) {
+    const tickets = await Ticket.all();
+
+    return view.render('Ticket.index', { tickets: tickets.rows });
   }
 
-  /**
-   * Render a form to be used for creating a new ticket.
-   * GET tickets/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
+
+  async create ({ view }) {
+    const statuses = await Status.all();
+    const priorities = await Priority.all();
+    const categories = await Category.all();
+
+    return view.render('Ticket.create',{
+      statuses: statuses.rows,
+      priorities: priorities.rows,
+      categories: categories.rows
+    });
   }
 
-  /**
-   * Create/save a new ticket.
-   * POST tickets
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+  // Melhorar o retorno dos relacionamentos
   async store ({ request, response }) {
+    const status = request.only(['status']);
+    const priority = request.only(['priority']);
+    const category = request.only(['category']);
+
+
+    const ticketData = request.only([
+      'title',
+      'description',
+      'creatorEmail'
+    ]);
+
+    await Ticket.create({...ticketData, 
+      status_id: status.status,
+      priority_id: priority.priority,
+      category_id: category.category
+    });
+
+    response.redirect('/tickets');
   }
 
-  /**
-   * Display a single ticket.
-   * GET tickets/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+
   async show ({ params, request, response, view }) {
   }
 
-  /**
-   * Render a form to update an existing ticket.
-   * GET tickets/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+
   async edit ({ params, request, response, view }) {
   }
 
-  /**
-   * Update ticket details.
-   * PUT or PATCH tickets/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+
   async update ({ params, request, response }) {
   }
 
-  /**
-   * Delete a ticket with id.
-   * DELETE tickets/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+
   async destroy ({ params, request, response }) {
   }
 }

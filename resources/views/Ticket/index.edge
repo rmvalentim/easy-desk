@@ -1,0 +1,23 @@
+@layout('master')
+
+@section('content')
+
+<h2>Tickets</h2>
+<a href="{{ route('tickets.create') }}">Novo ticket</a>
+<br>
+<table>
+    <tr>
+        <th>Título</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @each(ticket in tickets)
+    <tr>
+        <td> {{ticket.title}} </td>
+        <td><a href="{{ route('tickets.show', { id: ticket.id }) }}">Ver</a></td>
+        <td><a href="{{ route('tickets.edit', { id: ticket.id }) }}">Editar</a></td>       
+    </tr>
+    @endeach
+</table>
+
+@endsection
