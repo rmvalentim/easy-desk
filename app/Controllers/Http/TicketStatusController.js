@@ -48,7 +48,7 @@ class TicketStatusController {
     response.redirect('/ticketStatus');
   }
 
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, response }) {
     const ticketStatus = await TicketStatus.findOrFail(params.id);
     await ticketStatus.delete();
 
